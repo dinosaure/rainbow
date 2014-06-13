@@ -1,17 +1,18 @@
-Rainbow
+RainBow
 =======
 
 <p align=”center”>
   <img src="https://github.com/dinosaure/Rainbow/blob/master/logo.gif?raw=true" alt="Rainbow" />
 </p>
 
-Ceci est une implémentation imparfaite des arbres rouge et noir en C avec OCaml. Je voulais voir si une implémentation en C
-serait plus rapide qu’en OCaml mais je sais pas parce que j’ai la flemme des faire les _benchmark_.
-Ensuite, elle est imparfaite parce que pour le module `Poney`, il manque le `remove` (pour ceux qui ont déjà implémenté
-un arbre rouge et noir savent de quoi je parle) car il faudrait rester en phase avec _garbage collector_.
+This is an imperfect implementation of red-black tree in C with OCaml. I wanted to see if a
+C implementation would be faster than OCaml but I don’t know because I’m too lazy to do the
+_benchmark_. Then it is imperfect because for `Poney` module, it misses the `remove` (for
+those who have already implemented a red-black tree know what I mean) because it would keep
+up with the _garbage collector_.
 
-Donc si vous avez des idées pour sauver le petit `Poney`, je suis à l’écoute.
+So if you have ideas to save the little `Poney`, I’m listening.
 
-Enfin, il y a le module `Unicorn`. Il marche presque, on peut notifier un bug dans le `main.ml` en rajoutantt
-`Gc.compact ()`. Donc pour ceux qui sont curieux, voilà ma superbe implémentation. Bien entendu, l’image est en lien
-avec l’horreur que vous pouvez voir dans ce code.
+Finally, there is the `Unicorn` module. It almost works, we can notify a bug in `main.ml` by
+adding `Gc.compact ()`. So for those who are curious, here is my super implementation. Of course,
+the image is linked to the horror that you can see in this code.
