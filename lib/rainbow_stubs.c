@@ -6,7 +6,6 @@
 #include <caml/custom.h>
 #include <caml/callback.h>
 
-
 void
 dump_margin(int margin)
 {
