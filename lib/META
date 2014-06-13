@@ -1,0 +1,11 @@
+# OASIS_START
+# DO NOT EDIT (digest: 497eee57993973ff6211adc6563d66e9)
+version = "0.1"
+description = "Red-black tree implementation in C with OCaml"
+archive(byte) = "rainbow.cma"
+archive(byte, plugin) = "rainbow.cma"
+archive(native) = "rainbow.cmxa"
+archive(native, plugin) = "rainbow.cmxs"
+exists_if = "rainbow.cma"
+# OASIS_STOP
+

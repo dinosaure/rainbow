@@ -1,0 +1,26 @@
+# OASIS_START
+# DO NOT EDIT (digest: 8bfdb1c098468ae8924f1427fae83e7d)
+# Ignore VCS directories, you can use the same kind of rule outside
+# OASIS_START/STOP if you want to exclude directories that contains
+# useless stuff for the build process
+<**/.svn>: -traverse
+<**/.svn>: not_hygienic
+".bzr": -traverse
+".bzr": not_hygienic
+".hg": -traverse
+".hg": not_hygienic
+".git": -traverse
+".git": not_hygienic
+"_darcs": -traverse
+"_darcs": not_hygienic
+# Library rainbow
+"lib/rainbow.cmxs": use_rainbow
+<lib/*.ml{,i}>: oasis_library_rainbow_ccopt
+"lib/rainbow_stubs.c": oasis_library_rainbow_ccopt
+"lib/poney_stubs.c": oasis_library_rainbow_ccopt
+"lib/unicorn_stubs.c": oasis_library_rainbow_ccopt
+<lib/rainbow.{cma,cmxa}>: use_librainbow_stubs
+# Executable rainbow
+"bin/main.native": use_rainbow
+<bin/*.ml{,i}>: use_rainbow
+# OASIS_STOP
