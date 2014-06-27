@@ -25,20 +25,15 @@ let () =
   U.add a "tata" 1313;
   U.add a "tutu" 1717;
 
-  U.iter (fun key value -> Printf.printf "%s: %d\n%!" key value) a;
-  let l = U.fold
+  U.iter (fun key value -> Printf.fprintf stderr "%s: %d\n%!" key value) a;
+
+  let l1 = U.fold
       (fun key value acc ->
-         (* Gc.compact (); WTF! *)
+         Gc.compact ();
          (key, value) :: acc)
       a []
   in
 
-  Printf.printf "%a\n%!" (print_list (print_tuple print_string print_int)) l;
-
-  let b = List.fold_right (fun (a, b) -> M.add a b) l (M.empty ()) in
-
-  Gc.compact ();
-
-  M.iter (fun key value -> Printf.printf "%s: %d\n%!" key value) b;
+  Printf.fprintf stderr "%a\n%!" (print_list (print_tuple print_string print_int)) l1;
 
   ()

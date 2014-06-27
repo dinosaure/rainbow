@@ -190,19 +190,17 @@ unicorn_mliter(value func, value ml_tree)
 {
   CAMLparam2(func, ml_tree);
 
-  t_unicorn_tree * tree;
+  t_unicorn_tree ** tree;
 
-  tree = (t_unicorn_tree *) ml_tree;
+  tree = (t_unicorn_tree **) &ml_tree;
 
-  long * nested_iter (t_unicorn_node * parent, t_unicorn_node * node, long * data)
+  void nested_iter (t_unicorn_node * parent, t_unicorn_node * node, long ** data)
     {
       (void) parent;
       (void) caml_callback2(func, node->key, node->value);
-
-      return (data);
     }
 
-  (void) unicorn_iter(tree, &nested_iter, NULL);
+  unicorn_iter(tree, &nested_iter, NULL);
 
   CAMLreturn(Val_unit);
 }
@@ -210,20 +208,24 @@ unicorn_mliter(value func, value ml_tree)
 /* val fold: (key -> 'a -> 'b -> 'b) -> 'a t -> 'b -> 'b */
 
 CAMLprim value
-unicorn_fold(value func, value ml_tree, value acc)
+unicorn_fold(value func, value ml_tree, value ml_acc)
 {
-  CAMLparam3(func, ml_tree, acc);
+  CAMLparam3(func, ml_tree, ml_acc);
+  CAMLlocal1(tmp);
 
-  t_unicorn_tree * tree;
+  t_unicorn_tree ** tree;
+  long ** acc;
 
-  tree = (t_unicorn_tree *) ml_tree;
+  tree = (t_unicorn_tree **) &ml_tree;
+  acc = (long **) &ml_acc;
 
-  long * nested_func (t_unicorn_node * parent, t_unicorn_node * node, long * data)
+  void nested_func (t_unicorn_node * parent, t_unicorn_node * node, long ** data)
     {
-      (void) parent;
-
-      return ((long *) (acc = caml_callback3(func, node->key, node->value, (value) data)));
+      (*data) = (long *) caml_callback3(func, \
+	  node->key, node->value, (value) (*data));
     }
 
-  CAMLreturn((value) unicorn_iter(tree, &nested_func, (long *) acc));
+  unicorn_iter(tree, &nested_func, acc);
+
+  CAMLreturn(ml_acc);
 }

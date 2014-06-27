@@ -365,19 +365,17 @@ poney_mliter(value func, value ml_tree)
 {
   CAMLparam2(func, ml_tree);
 
-  t_poney_tree * tree;
+  t_poney_tree ** tree;
 
-  tree = (t_poney_tree *) ml_tree;
+  tree = (t_poney_tree **) &ml_tree;
 
-  long * nested_iter (t_poney_node * parent, t_poney_node * node, long * data)
+  void nested_iter (t_poney_node * parent, t_poney_node * node, long ** data)
     {
       (void) parent;
       (void) caml_callback2(func, node->key, node->value);
-
-      return (data);
     }
 
-  (void) poney_iter(tree, &nested_iter, NULL);
+  poney_iter(tree, &nested_iter, NULL);
 
   CAMLreturn(Val_unit);
 }

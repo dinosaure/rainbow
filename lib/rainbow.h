@@ -1050,40 +1050,38 @@ _prefix##remove(_tree_type *tree, _type **ref, bool is_real_node,	\
   /* Color of root must forever be black. */				\
 }									\
 									\
-_attr long *								\
-_prefix##iter(_tree_type *tree,						\
-    long * (*func)(_type *, _type *, long *),				\
-    long * data)							\
+_attr void								\
+_prefix##iter(_tree_type **tree,					\
+    void (*func)(_type *, _type *, long **),				\
+    long ** data)							\
 {									\
   _type *	stack[sizeof(void *) << 4];				\
   _type **	stack_ptr;						\
 									\
   stack_ptr = stack;							\
 									\
-  if (tree->root != tree->null)						\
+  if ((*tree)->root != (*tree)->null)					\
     {									\
-      data = (*func)(NULL, tree->root, data);				\
-      (*stack_ptr++) = tree->root;					\
+      (*func)(NULL, (*tree)->root, data);				\
+      (*stack_ptr++) = (*tree)->root;					\
     }									\
 									\
-  while ((uintptr_t)stack_ptr > (uintptr_t)stack)			\
+  while ((uintptr_t) stack_ptr > (uintptr_t) stack)			\
     {									\
       _type * current = (*--stack_ptr);					\
       _type * tmp;							\
 									\
-      if ((tmp = RB_GET_LEFT(_type, _field, current)) != tree->null)	\
+      if ((tmp = RB_GET_LEFT(_type, _field, current)) != (*tree)->null)	\
 	{								\
-	  data = (*func)(current, tmp, data);				\
+	  (*func)(current, tmp, data);					\
 	  (*stack_ptr++) = tmp;						\
 	}								\
-      if ((tmp = RB_GET_RIGHT(_type, _field, current)) != tree->null)	\
+      if ((tmp = RB_GET_RIGHT(_type, _field, current)) != (*tree)->null)\
 	{								\
-	  data = (*func)(current, tmp, data);				\
+	  (*func)(current, tmp, data);					\
 	  (*stack_ptr++) = tmp;						\
 	}								\
     }									\
-									\
-  return (data);							\
 }									\
 
 #endif
