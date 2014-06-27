@@ -1,5 +1,5 @@
 # OASIS_START
-# DO NOT EDIT (digest: 8bfdb1c098468ae8924f1427fae83e7d)
+# DO NOT EDIT (digest: f010efa4cb2c6b9c3d29f0e17b72e043)
 # Ignore VCS directories, you can use the same kind of rule outside
 # OASIS_START/STOP if you want to exclude directories that contains
 # useless stuff for the build process
@@ -21,6 +21,12 @@
 "lib/unicorn_stubs.c": oasis_library_rainbow_ccopt
 <lib/rainbow.{cma,cmxa}>: use_librainbow_stubs
 # Executable rainbow
+"bin/main.native": package(core)
+"bin/main.native": package(core_bench)
+"bin/main.native": package(threads)
 "bin/main.native": use_rainbow
+<bin/*.ml{,i}>: package(core)
+<bin/*.ml{,i}>: package(core_bench)
+<bin/*.ml{,i}>: package(threads)
 <bin/*.ml{,i}>: use_rainbow
 # OASIS_STOP

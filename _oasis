@@ -20,5 +20,5 @@ Executable rainbow
   Install:		false
   Path:			bin
   MainIs:		main.ml
-  BuildDepends:		rainbow
+  BuildDepends:		rainbow, threads, core, core_bench
   CompiledObject:	native

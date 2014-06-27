@@ -3,3 +3,5 @@ S bin
 
 B _build/lib
 B _build/bin
+
+PKG core core_bench
